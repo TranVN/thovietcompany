@@ -58,7 +58,7 @@
 
     <div class="min-h-screen bg-gray-100">
         <div class="main-body">
-            @include('layouts.navigation-menu')
+            @include('layouts.menu')
 
 
             <!-- Page Content -->
