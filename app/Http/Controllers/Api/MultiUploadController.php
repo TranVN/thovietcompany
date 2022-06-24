@@ -54,13 +54,12 @@ class MultiUploadController extends Controller
             return response()->json(['upload_file_not_found'], 400);
         }
         else{
-
-
             $id = $request->id_work_has;
             // return $request->id_work_has;
-            // $id_worker =  $request->id_worker;
+            $id_cus =  $request->id_cus;
             $seri_number = $request->seri_number;
             $find = WorkHas::find($id);
+            // return $id;
             if($find->count() > 0)
             {
                 $allowedfileExtension=['jpg','png'];
@@ -71,7 +70,6 @@ class MultiUploadController extends Controller
                 {
                     $name = $seri_number.'.'.$files->extension();
                     $path = $files->move('assets/images/bill/'.$find->id_worker, $name);
-                    // $bill_img = 'assets/images/bill/'.$find->id_worker."/". $name;
                     $find->income_total = $request->income_total;
                     $find->spending_total = $request ->spending_total;
                     $find->seri_number = $seri_number;
@@ -79,6 +77,12 @@ class MultiUploadController extends Controller
                     $find->bill_imag =$path;
                     $find->save();
                     // return $name;
+                    $update =Work::where('id','=',$id_cus)-> update(['work_content'=>$request->work_content,'street'=>$request->steet,'district'=>$request->district]);
+                    if($update)
+                    {
+                        return '1';
+                    }
+
 
                 }
                 else {

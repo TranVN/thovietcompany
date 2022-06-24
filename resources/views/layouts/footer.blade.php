@@ -1,9 +1,7 @@
 <button class= "btn btn-danger btn-new-work" id="btn-new-work" onclick="showNewWork()"><i class="fa fa-plus"></i></button>
 <div class="new-work" id="new-work" style="display: none;">
    <div class="new-work-title">Thêm khách hàng mới</div> 
-    
-    <div class="p-3">
-        
+   <div class="p-3">
             <div class="main-card mb-3 card">
                 <div class="card-body">
                     <form action="{{route('addWork')}}" method="POST">
@@ -72,7 +70,6 @@
                     </form>
                 </div>
             </div>
-        
     </div>
 </div>
 

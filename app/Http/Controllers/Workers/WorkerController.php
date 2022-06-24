@@ -290,7 +290,7 @@ class WorkerController extends Controller
                     if($item->id_cus == $id_cus)
                     {
                         $findReturnWorkHas = DB::table('work_has')->where('id','=',$id_work_has)->update(['status_work'=>4]);
-                        $findReturnWork = DB::table('works')->where('id','=',$item->id_cus)->update(['status_cus'=> 0]);
+                        $findReturnWork = DB::table('works')->where('id','=',$item->id_cus)->update(['status_cus'=> 0,'work_note'=>$request->work_note]);
                         WorkerController::workReturnPush($id_worker,$id_cus,$id_cus);
                         return 1;
                     }

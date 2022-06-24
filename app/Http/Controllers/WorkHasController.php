@@ -128,6 +128,9 @@ class WorkHasController extends Controller
     public function updateWorker(Request $request, $id)
     {
         $updateWorker = WorkHas::where('id', '=', $id)->update(['id_worker' => $request->id_worker]);
+        $kind_worker =  Worker::where('id', '=', $request->id_worker)->value('kind_worker');
+       
+        $hi = Work::where('id', '=', $request->get('id_cus'))->update(['kind_work'=> $kind_worker]);
 
         return redirect()->action('WorkController@home');
     }

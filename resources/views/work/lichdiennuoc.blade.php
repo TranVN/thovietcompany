@@ -739,11 +739,11 @@
                                                                 </div>
                                                                 <div class="col-3"></a>
                                                                     <!-- Button trigger modal -->
-                                                                    <button type="button" class="btn btn-primary btn-bg" data-toggle="modal" data-target="#modelId">
+                                                                    <button type="button" class="btn btn-primary btn-bg" data-toggle="modal" data-target="#incomeImage-{{$item->id}}">
                                                                       Xem hình ảnh phiếu chi
                                                                     </button>
                                                                     <!-- Modal -->
-                                                                    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                                    <div class="modal fade" id="incomeImage-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                                                                         <div class="modal-dialog" role="document">
                                                                             <div class="modal-content">
                                                                                     <div class="modal-header">
@@ -955,11 +955,13 @@
                                                 <div class="row">
                                                     <input type="hidden" name="id_worker"
                                                         value="{{ $item->id_worker }}">
+                                                        <input type="hidden" name="id_cus"
+                                                        value="{{ $item->id_cus }}">
                                                     <div class='col-sm-6 text-center'>
                                                         <label class='check-container1'>Thợ Chính :
                                                         </label>
                                                         <select name='id_worker' class='form-control'>
-                                                            <option value="0">{{ $item->worker_name }}</option>
+                                                            <option value="{{ $item->id_worker }}">{{ $item->worker_name }}</option>
                                                             @foreach ($worker as $itemWorker)
                                                                 @switch($itemWorker->worker_name)
                                                                     @case($item->worker_name)
@@ -1159,10 +1161,4 @@
     </div>
 </div>
 
-<script type="text/javascript">
-    function copyToClipboard(id) {
-        document.getElementById(id).select();
 
-        document.execCommand('copy');
-    }
-</script>

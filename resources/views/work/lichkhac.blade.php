@@ -84,14 +84,14 @@
                 </thead>
                 <tbody>
                     @foreach ($else as $item)
-                        <tr data-toggle="modal" data-target="#DNC_{{ $item->id }}" >
+                        <tr data-toggle="modal" data-target="#LK_{{ $item->id }}" >
                             <td>{{ $item->work_content }}</td>
                             <td>{{ $item->name_cus }}</td>
                             <td>{{ $item->street }}, {{ $item->district }}</td>
                             <td>{{ $item->phone_number }}</td>
                             <td>{{ $item->work_note }}</td>
                             {{-- SỬA LỊCH --}}
-                            <div class="modal fade" id="DNC_{{ $item->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="LK_{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
@@ -515,18 +515,18 @@
 
                         @endif
                         >
-                        <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }} " data-toggle="tooltip"
+                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }} " data-toggle="tooltip"
                             data-placement="top" title="Nhập Thu Chi">
                             {{ $item->work_content }}
                         </td>
-                        <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
                             data-placement="top" title="Nhập Thu Chi">{{ $item->street }},
                             {{ $item->district }}</td>
-                        <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
                             data-placement="top" title="Nhập Thu Chi">
                             {{ $item->phone_number }}
                         </td>
-                        <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
                             data-placement="top" title="Nhập Thu Chi">{{ $item->real_note }}
                         </td>
                         @if ($item->income_total == 0)
@@ -535,36 +535,36 @@
                                 {{ $item->worker_name }}
                             </td>
                         @else
-                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
                                 data-placement="top" title="Đổi Thợ">
                                  {{ $item->worker_name }}
                             </td>
                         @endif
 
                         @if ($item->income_total == 0)
-                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
                                 data-placement="top" title="Nhập Thu Chi" style="color: red; font-weight:800">
                                 {{ $item->spending_total }}
                             </td>
                         @else
-                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
                                 data-placement="top" title="Nhập Thu Chi">
                                 {{ $item->spending_total }}
                             </td>
                         @endif
                         @if ($item->income_total == 0)
-                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }} " data-toggle="tooltip"
+                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }} " data-toggle="tooltip"
                                 data-placement="top" title="Nhập Thu Chi" style="color: red; font-weight:800">
                                 {{ $item->income_total }}
                             </td>
                         @else
-                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }} " data-toggle="tooltip"
+                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }} " data-toggle="tooltip"
                                 data-placement="top" title="Nhập Thu Chi">
                                 {{ $item->income_total }}
                             </td>
                         @endif
 
-                        <td data-toggle="modal" data-target="#DNCDPS_{{ $item->id_cus }}" data-toggle="tooltip"
+                        <td data-toggle="modal" data-target="#LKDPS_{{ $item->id_cus }}" data-toggle="tooltip"
                             data-placement="top" title="Sửa thông tin khách hàng">
                             <svg class="bi" width="20" height="20" fill="currentColor"
                                 style="color: red">
@@ -573,7 +573,7 @@
                         </td>
 
 
-                            <div class="modal fade" id="DNCDP_{{ $item->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="LKDP_{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
@@ -921,7 +921,7 @@
                                 </div>
                             </div>
                             {{-- SỬA LỊCH ĐÃ PHÂN --}}
-                            <div class="modal fade" id="DNCDPS_{{ $item->id_cus }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="LKDPS_{{ $item->id_cus }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
 
                                 <div class="modal-dialog modal-xl" role="document">
