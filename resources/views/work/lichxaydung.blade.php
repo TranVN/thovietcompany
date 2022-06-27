@@ -83,7 +83,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($buildHas as $item)
+                    @foreach ($build as $item)
                         <tr data-toggle="modal" data-target="#DNC_{{ $item->id }}" >
                             <td>{{ $item->work_content }}</td>
                             <td>{{ $item->name_cus }}</td>
@@ -508,7 +508,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($else as $item)
+                    @foreach ($buildHas as $item)
 
                         <tr @if($today != $item->date_book)
                              style="background-color: #fffe0045"
