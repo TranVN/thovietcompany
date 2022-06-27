@@ -787,17 +787,28 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-
-                                                                    <script>
-                                                                        $('#exampleModal').on('show.bs.modal', event => {
-                                                                            var button = $(event.relatedTarget);
-                                                                            var modal = $(this);
-                                                                            // Use above variables to manipulate the DOM
-
-                                                                        });
-                                                                    </script>
                                                                 </div>
-                                                                <div class="col-3"><a class="btn btn-outline-success" href="">Hình ảnh phiếu thu</a></div>
+                                                                <div class="col-3">
+                                                                <!-- Button trigger modal -->
+                                                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#bill_{{$item->id}}">
+                                                                        Hình ảnh phiếu thu
+                                                                    </button>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="bill_{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                
+                                                                                <div class="modal-body">
+                                                                                    <div class="container-fluid">
+                                                                                        <img src="{{asset("$item->bill_imag")}}" class="d-block w-100" alt="...">
+                                                                                    </div>
+                                                                                </div>
+                                                                            
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div>

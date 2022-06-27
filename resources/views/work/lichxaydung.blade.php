@@ -84,7 +84,8 @@
                 </thead>
                 <tbody>
                     @foreach ($build as $item)
-                        <tr data-toggle="modal" data-target="#DNC_{{ $item->id }}" >
+                        <tr data-toggle="modal" data-target="#DNC_{{ $item->id }}" onclick="coppyText()"
+                            id="myText">
                             <td>{{ $item->work_content }}</td>
                             <td>{{ $item->name_cus }}</td>
                             <td>{{ $item->street }}, {{ $item->district }}</td>
@@ -265,6 +266,7 @@
                                                         <select name='id_worker' class='form-control'>
                                                             @foreach ($worker as $itemWK)
                                                                 <option value="{{ $itemWK->id }}">
+                                                                    {{ $itemWK->sort_name }} -
                                                                     {{ $itemWK->worker_name }}
                                                                 </option>
                                                             @endforeach
@@ -276,6 +278,7 @@
                                                             <option value="0">Không</option>
                                                             @foreach ($worker as $itemWK)
                                                                 <option value="{{ $itemWK->id }}">
+                                                                    {{ $itemWK->sort_name }} -
                                                                     {{ $itemWK->worker_name }}
                                                                 </option>
                                                             @endforeach
@@ -284,7 +287,7 @@
                                                 </div>
                                                 <input type="hidden" class="form-control"
                                                     id="coppy_{{ $item->id }}"
-                                                    value="{{ $item->work_content .'    ' .$item->street .'   ' .$item->district .'  ' .$item->phone_number .'  ' .$item->work_note }}">
+                                                    value="{{ $item->work_content . '    ' . $item->street . '   ' . $item->district . '  ' . $item->phone_number . '  ' . $item->work_note }}">
                                                 {{-- end body --}}
                                             </div>
                                             <div class="modal-footer">
@@ -509,71 +512,66 @@
                 </thead>
                 <tbody>
                     @foreach ($buildHas as $item)
-
-                        <tr @if($today != $item->date_book)
-                             style="background-color: #fffe0045"
-
-                        @endif
-                        >
-                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }} " data-toggle="tooltip"
-                            data-placement="top" title="Nhập Thu Chi">
-                            {{ $item->work_content }}
-                        </td>
-                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
-                            data-placement="top" title="Nhập Thu Chi">{{ $item->street }},
-                            {{ $item->district }}</td>
-                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
-                            data-placement="top" title="Nhập Thu Chi">
-                            {{ $item->phone_number }}
-                        </td>
-                        <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
-                            data-placement="top" title="Nhập Thu Chi">{{ $item->real_note }}
-                        </td>
-                        @if ($item->income_total == 0)
-                            <td data-toggle="modal" data-target="#phantholichdp{{ $item->id }}"
-                                data-toggle="tooltip" data-placement="top" title="Đổi Thợ">
-                                {{ $item->worker_name }}
-                            </td>
-                        @else
-                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
-                                data-placement="top" title="Đổi Thợ">
-                                 {{ $item->worker_name }}
-                            </td>
-                        @endif
-
-                        @if ($item->income_total == 0)
-                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
-                                data-placement="top" title="Nhập Thu Chi" style="color: red; font-weight:800">
-                                {{ $item->spending_total }}
-                            </td>
-                        @else
-                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }}" data-toggle="tooltip"
+                        <tr @if ($today != $item->date_book) style="background-color: #fffe0045" @endif>
+                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }} " data-toggle="tooltip"
                                 data-placement="top" title="Nhập Thu Chi">
-                                {{ $item->spending_total }}
+                                {{ $item->work_content }}
                             </td>
-                        @endif
-                        @if ($item->income_total == 0)
-                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }} " data-toggle="tooltip"
-                                data-placement="top" title="Nhập Thu Chi" style="color: red; font-weight:800">
-                                {{ $item->income_total }}
-                            </td>
-                        @else
-                            <td data-toggle="modal" data-target="#LKDP_{{ $item->id }} " data-toggle="tooltip"
+                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                                data-placement="top" title="Nhập Thu Chi">{{ $item->street }},
+                                {{ $item->district }}</td>
+                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
                                 data-placement="top" title="Nhập Thu Chi">
-                                {{ $item->income_total }}
+                                {{ $item->phone_number }}
                             </td>
-                        @endif
+                            <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                                data-placement="top" title="Nhập Thu Chi">{{ $item->real_note }}
+                            </td>
+                            @if ($item->income_total == 0)
+                                <td data-toggle="modal" data-target="#phantholichdp{{ $item->id }}"
+                                    data-toggle="tooltip" data-placement="top" title="Đổi Thợ">
+                                    {{ $item->worker_name }}
+                                </td>
+                            @else
+                                <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                                    data-placement="top" title="Đổi Thợ">
+                                    {{ $item->worker_name }}
+                                </td>
+                            @endif
 
-                        <td data-toggle="modal" data-target="#LKDPS_{{ $item->id_cus }}" data-toggle="tooltip"
-                            data-placement="top" title="Sửa thông tin khách hàng">
-                            <svg class="bi" width="20" height="20" fill="currentColor"
-                                style="color: red">
-                                <use xlink:href="{{ asset('icon/bootstrap-icons.svg#pencil') }}" />
-                            </svg>
-                        </td>
+                            @if ($item->income_total == 0)
+                                <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                                    data-placement="top" title="Nhập Thu Chi" style="color: red; font-weight:800">
+                                    {{ $item->spending_total }}
+                                </td>
+                            @else
+                                <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }}" data-toggle="tooltip"
+                                    data-placement="top" title="Nhập Thu Chi">
+                                    {{ $item->spending_total }}
+                                </td>
+                            @endif
+                            @if ($item->income_total == 0)
+                                <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }} " data-toggle="tooltip"
+                                    data-placement="top" title="Nhập Thu Chi" style="color: red; font-weight:800">
+                                    {{ $item->income_total }}
+                                </td>
+                            @else
+                                <td data-toggle="modal" data-target="#DNCDP_{{ $item->id }} " data-toggle="tooltip"
+                                    data-placement="top" title="Nhập Thu Chi">
+                                    {{ $item->income_total }}
+                                </td>
+                            @endif
+
+                            <td data-toggle="modal" data-target="#DNCDPS_{{ $item->id_cus }}" data-toggle="tooltip"
+                                data-placement="top" title="Sửa thông tin khách hàng">
+                                <svg class="bi" width="20" height="20" fill="currentColor"
+                                    style="color: red">
+                                    <use xlink:href="{{ asset('icon/bootstrap-icons.svg#pencil') }}" />
+                                </svg>
+                            </td>
 
 
-                            <div class="modal fade" id="LKDP_{{ $item->id }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="DNCDP_{{ $item->id }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
                                 <div class="modal-dialog modal-xl" role="document">
                                     <div class="modal-content">
@@ -697,31 +695,114 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-12">
-                                                            <div class="position-relative form-group">
-                                                                <div class="form-row" name="done" id="done">
-                                                                    <div class="col-4">
-                                                                        <div class="position-relative form-group">
-                                                                            <input type="radio" name="status_work"
-                                                                                checked value="0">
-                                                                            <label for="status_work">Đã Làm</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="position-relative form-group">
-                                                                            <input type="radio" name="status_work"
-                                                                                value="5">
-                                                                            <label for="status_work">Mai làm
-                                                                                tiếp</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="position-relative form-group">
-                                                                            <input type="radio" name="status_work"
-                                                                                value="3">
-                                                                            <label for="status_work">Báo Giá</label>
+                                                            <div class="row">
+                                                                <div class="col-6">
+                                                                    <div class="position-relative form-group">
+                                                                        <div class="form-row" name="done"
+                                                                            id="done">
+                                                                            <div class="col-4">
+                                                                                <div
+                                                                                    class="position-relative form-group">
+                                                                                    <input type="radio"
+                                                                                        name="status_work" checked
+                                                                                        value="0">
+                                                                                    <label for="status_work">Đã
+                                                                                        Làm</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-4">
+                                                                                <div
+                                                                                    class="position-relative form-group">
+                                                                                    <input type="radio"
+                                                                                        name="status_work" value="5">
+                                                                                    <label for="status_work">Mai làm
+                                                                                        tiếp</label>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-4">
+                                                                                <div
+                                                                                    class="position-relative form-group">
+                                                                                    <input type="radio"
+                                                                                        name="status_work" value="3">
+                                                                                    <label for="status_work">Báo
+                                                                                        Giá</label>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="col-3"></a>
+                                                                    <!-- Button trigger modal -->
+                                                                    <button type="button" class="btn btn-primary btn-bg" data-toggle="modal" data-target="#incomeImage-{{$item->id}}">
+                                                                      Xem hình ảnh phiếu chi
+                                                                    </button>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="incomeImage-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                    <div class="modal-header">
+                                                                                            <h5 class="modal-title">Hình ảnh phiếu chi</h5>
+
+                                                                                        </div>
+                                                                                <div class="modal-body">
+                                                                                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                                                                        <div class="carousel-inner">
+                                                                                            @php
+                                                                                                $image = DB::table('spending_total_images')->where('id_work_has' , '=',  $item->id)->get();
+                                                                                                $count = $image->count();
+                                                                                                // echo $images;
+                                                                                            @endphp
+                                                                                            @foreach ($image as $items)
+                                                                                            {{-- nhớ thêm length vào database --}}
+                                                                                            @if ($items->length == 0)
+                                                                                                <div class="carousel-item active">
+                                                                                                    <img src="{{asset("$items->path_image")}}" class="d-block w-100" alt="...">
+                                                                                                </div>
+                                                                                            @else
+                                                                                                <div class="carousel-item">
+                                                                                                    <img src="{{asset("$items->path_image")}}" class="d-block w-100" alt="...">
+                                                                                                </div>
+                                                                                            @endif
+                                                                                            @endforeach
+
+
+                                                                                        </div>
+                                                                                       <button class="carousel-control-prev"  type="button" data-target="#carouselExampleControls" data-slide="prev">
+                                                                                          <span class="carousel-control-prev-icon"   aria-hidden="true"></span>
+
+                                                                                        </button>
+                                                                                        <button  class="carousel-control-next" type="button" data-target="#carouselExampleControls" data-slide="next">
+                                                                                          <span class="carousel-control-next-icon"  aria-hidden="true"></span>
+                                                                                        </button>
+                                                                                    </div>
+
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-3">
+                                                                <!-- Button trigger modal -->
+                                                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#bill_{{$item->id}}">
+                                                                        Hình ảnh phiếu thu
+                                                                    </button>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="bill_{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                                                        <div class="modal-dialog" role="document">
+                                                                            <div class="modal-content">
+                                                                                
+                                                                                <div class="modal-body">
+                                                                                    <div class="container-fluid">
+                                                                                        <img src="{{asset("$item->bill_imag")}}" class="d-block w-100" alt="...">
+                                                                                    </div>
+                                                                                </div>
+                                                                            
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                               
                                                             </div>
                                                         </div>
                                                     </div>
@@ -778,7 +859,7 @@
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target=".xoalichdaphan{{ $item->id }}">Xóa
                                                         Lịch</button>
-                                                        @if ($item->income_total == 0)
+                                                    @if ($item->income_total == 0)
                                                         <button type="button" class="btn btn-primary"
                                                             data-toggle="modal"
                                                             data-target=".tralichdaphan{{ $item->id }}">Trả
@@ -877,12 +958,15 @@
                                             <div class="modal-body">
                                                 {{-- body --}}
                                                 <div class="row">
-                                                    <input type="hidden" name="id_worker" value="{{ $item->id_worker }}">
+                                                    <input type="hidden" name="id_worker"
+                                                        value="{{ $item->id_worker }}">
+                                                        <input type="hidden" name="id_cus"
+                                                        value="{{ $item->id_cus }}">
                                                     <div class='col-sm-6 text-center'>
                                                         <label class='check-container1'>Thợ Chính :
                                                         </label>
                                                         <select name='id_worker' class='form-control'>
-                                                            <option value="0">{{ $item->worker_name }}</option>
+                                                            <option value="{{ $item->id_worker }}">{{ $item->worker_name }}</option>
                                                             @foreach ($worker as $itemWorker)
                                                                 @switch($itemWorker->worker_name)
                                                                     @case($item->worker_name)
@@ -921,7 +1005,7 @@
                                 </div>
                             </div>
                             {{-- SỬA LỊCH ĐÃ PHÂN --}}
-                            <div class="modal fade" id="LKDPS_{{ $item->id_cus }}" tabindex="-1" role="dialog"
+                            <div class="modal fade" id="DNCDPS_{{ $item->id_cus }}" tabindex="-1" role="dialog"
                                 aria-labelledby="modelTitleId" aria-hidden="true">
 
                                 <div class="modal-dialog modal-xl" role="document">
@@ -933,7 +1017,7 @@
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <div class="modal-body" >
+                                        <div class="modal-body">
                                             <div class="container-fluid">
                                                 <form action="{{ route('updateWork', ['id' => $item->id_cus]) }}"
                                                     method="POST">
@@ -947,7 +1031,8 @@
                                                                     id="exampleAddress"
                                                                     placeholder="Sửa nhà, điện nước, điện lạnh...."
                                                                     type="text" class="form-control"
-                                                                    value="{{ $item->work_content }}" required></div>
+                                                                    value="{{ $item->work_content }}" required>
+                                                            </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="position-relative form-group"><label
@@ -994,7 +1079,8 @@
                                                         </div>
                                                         <div class="col-md-6">
                                                             <input type="hidden" value="hihi" name="check_update">
-                                                            <input type="hidden" value="{{ $item->id }}" name="id_work_has">
+                                                            <input type="hidden" value="{{ $item->id }}"
+                                                                name="id_work_has">
                                                             <div class="position-relative form-group"><label
                                                                     for="exampleAddress" class="">Ghi
                                                                     chú</label><input name="real_note"
