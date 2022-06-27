@@ -5,9 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\SpendingTotalImage;
+use App\Models\Warranty;
 use App\Models\Work;
 use App\Models\WorkHas;
-
+use Carbon\Carbon;
 
 class MultiUploadController extends Controller
 {
@@ -59,8 +60,9 @@ class MultiUploadController extends Controller
             $id_cus =  $request->id_cus;
             $seri_number = $request->seri_number;
             $find = WorkHas::find($id);
+            $arW = json_decode($request->warranties_array,true);
             // return $id;
-            if($find->count() > 0)
+            if($find!=null && $find->count() > 0)
             {
                 $allowedfileExtension=['jpg','png'];
                 $files = $request->file('imageFile');
@@ -76,8 +78,21 @@ class MultiUploadController extends Controller
                     $find->status_work = 1;
                     $find->bill_imag =$path;
                     $find->save();
-                    // return $name;
-                    $update =Work::where('id','=',$id_cus)-> update(['work_content'=>$request->work_content,'street'=>$request->steet,'district'=>$request->district]);
+                //  return $request->length_war;
+                   
+
+                    $update =Work::where('id','=',$id_cus)-> update(['work_content'=>$request->work_content,'street'=>$request->street,'district'=>$request->district]);
+                    // add to warranties
+                   
+                        for( $i = 0 ;$i < $request->length_war; $i++)
+                        {
+                            $add_Warra = new Warranty();
+                            $add_Warra->id_cus = $id_cus;
+                            $cNow = Carbon::now()->addDay($arW[$i]['times']);
+                            $add_Warra->warranty_time = $cNow;
+                            $add_Warra->warranty_info = $arW[$i]['info'];
+                            $add_Warra -> save();
+                        }
                     if($update)
                     {
                         return '1';
@@ -90,6 +105,19 @@ class MultiUploadController extends Controller
                 }
                 return 'Cập Nhật Phiếu Thu Thành Công';
             }
+            else{
+                return 'error';
+            }
         }
     }
+    // public function addWarranties(Request $req)
+    // {
+    //     $id_work_has = $req ->id_work_has;
+    //     $arW = json_decode($req->warranties_array,true);
+
+    //     // $a = $arW->id;
+
+    //    return  $arW[1]['id'];
+      
+    // }
 }

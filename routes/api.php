@@ -87,8 +87,10 @@ Route:: post('getHistoryWorkForWorker','Workers\WorkerController@getHistoryWorkF
 Route:: post('getReturnWorkForWorker','Workers\WorkerController@getReturnWorkForWorker');
 // get cancle work
 Route:: post('cusCancle','Workers\WorkerController@cusCancle');
-// get history work by worker id
+// add done work
 Route:: post('doneWork','Api\MultiUploadController@doneWork');
+// add warranties work
+Route:: post('addWarranties','Api\MultiUploadController@addWarranties');
 // worker off
 Route:: post('offWorker','Workers\OffWorkersController@offWorker');
 // get Spending ToTal images
