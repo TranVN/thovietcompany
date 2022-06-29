@@ -7,6 +7,11 @@ var pageUrl = getBaseURL();
 
 
 $(document).ready(function() {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
     window.app_absolute = '<?php echo GetRelativePath(dirname(__FILE__)); ?>';
 
     function startFCM() {
@@ -70,7 +75,7 @@ $(document).ready(function() {
     }, 30000);
 });
 
-/// ĐẾM CÔNG VIỆC APP
+// /// ĐẾM CÔNG VIỆC APP
 $(document).ready(function() {
     // updating the view with notifications using ajax
     function load_unseen_notificationMobile(view = '') {
@@ -115,7 +120,7 @@ $(document).ready(function() {
         load_unseen_notificationMobile();
     }, 5000);
 });
-
+// nút chuyển   
 function srolltoDN() {
     const element = document.getElementById("lichDN");
     element.scrollIntoView();
@@ -141,7 +146,7 @@ function srolltoKhac() {
     element.scrollIntoView();
 }
 
-/// ĐẾM THÔNG BÁO
+// // / ĐẾM THÔNG BÁO
 // $(document).ready(function() {
 //     // updating the view with notifications using ajax
 //     function load_unseen_notification(view = '') {
@@ -179,6 +184,7 @@ function srolltoKhac() {
 //         load_unseen_notification();
 //     }, 7000);
 // });
+
 // function sentMess() {
 //     var content_chat = document.getElementById('content_chat').value;
 //     var user_chat = document.getElementById('user_chat').value;

@@ -182,6 +182,12 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/', 'Workers\WorkerController@index');
         // create worker
         Route::post('/create', 'Workers\WorkerController@create')->name('create');
+        // Create Chat with id worker
+        // Route::get('create/{id}&{sort_name}',function(){
+        //     $tu =app('firebase.firestore')->database()->collection('chat')->document('id');
+        //     $tu->set(['group'=>'sort_name']);
+        //     $tu2 =app('firebase.firestore')->database()->collection('chat/319/chat_worker');
+        // });
         // json all worker
         Route::get('/getWorker','Workers\WorkerController@getAllWorkers');
         Route::post('/updatenghi', 'Workers\WorkerController@updateNghi');

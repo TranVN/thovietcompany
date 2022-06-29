@@ -251,7 +251,7 @@ class WorkerController extends Controller
             ->where('work_has.id_worker','=',$id)
             ->orderByDesc('id')
             ->limit(100)
-            ->get(['work_has.id','work_has.id_cus', 'works.name_cus', 'works.work_content', 'works.date_book', 'works.street', 'works.district', 'works.phone_number']);
+            ->get(['work_has.id','work_has.id_cus', 'works.name_cus', 'works.work_content', 'works.date_book', 'works.street', 'works.district', 'works.phone_number','works.work_note']);
             
                 return $findWork;
             

@@ -97,6 +97,8 @@ Route:: post('offWorker','Workers\OffWorkersController@offWorker');
 Route:: post('getImageSpend','Api\MultiUploadController@upImageSpen');
 //Push Noti Worker
 Route::post('notiWorkerPush/addNoti','Api\PushNotiFromWorkerController@store');
+// Need Work
+Route::post('needWork','Api\NeedWorkController@WorkerNeedWork');
 
 //---------------------------Chat App Route ------------------------------//
 Route::post('save-token-fcm','FCMController@index');

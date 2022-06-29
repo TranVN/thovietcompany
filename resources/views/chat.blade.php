@@ -1,6 +1,6 @@
 <x-app-layout>
     @section('title')
-        Quản Lý Thợ
+        Chat Thợ    
     @endsection
     @section('content')
     <div class="container-fluid chat-view">

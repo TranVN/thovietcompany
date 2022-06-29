@@ -202,7 +202,8 @@ class NewWorkController extends Controller
             if (Hash::check($password, $passwordDB)) {
                 $dbUser = DB::table('user_apps')->where('phone_cus_app', '=', $userDB)->update(['pass_cus_app' => $newPassword]);
                 if ($dbUser) {
-                    return 'Đổi Mật Khẩu Thành Công';
+                    $info_worker = DB::table('user_apps')->where('phone_cus_app', '=', $userDB)->get();
+                    return $info_worker;
                 } else {
                     return 'Lỗi !!!!!!!!!!!!';
                 }

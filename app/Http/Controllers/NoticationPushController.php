@@ -13,6 +13,9 @@ use App\Models\User;
 use Symfony\Component\HttpFoundation\Cookie;
 use App\Models\PushNotiFromWorker;
 use App\Http\Controllers\Workers\AccountWorkersController;
+use App\Models\NeedWork;
+use PHPUnit\Framework\Error\Notice;
+
 class NoticationPushController extends Controller
 {
     /**
@@ -156,29 +159,7 @@ class NoticationPushController extends Controller
      * @param  \App\NoticationPush  $noticationPush
      * @return \Illuminate\Http\Response
      */
-    public function show(NoticationPush $noticationPush)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\NoticationPush  $noticationPush
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(NoticationPush $noticationPush)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\NoticationPush  $noticationPush
-     * @return \Illuminate\Http\Response
-     */
+    
 
     public function updateMobile(Request $request)
     {
@@ -203,7 +184,8 @@ class NoticationPushController extends Controller
         $outp = '';
         $outp2 = '';
         $cnoti = count($noticationPush);
-        $newWorker= PushNotiFromWorker::where('flag','=','0')->get();
+        $id_au = Auth::user()->id;
+        $newWorker= NeedWork::where('flag_status','=','0')->get();
         $cnoti = $cnoti + $newWorker->count();
         if($cnoti != 0){
             foreach ($noticationPush as $item){
@@ -215,24 +197,11 @@ class NoticationPushController extends Controller
                 ';
             }
             foreach ($newWorker as $item){
-               switch($item->content_push ){
-                        case 1:
-                            $item->flag = 'Trả Lịch';
-                            break; 
-                        case 2:
-                            $item->flag = 'Đã Khảo Sát';
-                            break; 
-                        case 3:
-                            $item->flag = 'Khách Hủy';
-                            break;
-                        case 4:
-                            $item->flag = 'Khách hẹn lại sau';
-                            break;        
-                }
+               
                 $outp2 .= '
                     <ul class = "row">
                         <li class="col-8">'.AccountWorkersController::getNameWorkerAcctive($item->id_worker).'</li>
-                        <li class="col-4" >'.$item->flag.'</li>
+                        <li class="col-4" >'.$item->content.'</li>
                     </ul>
                 ';
             }
@@ -279,4 +248,5 @@ class NoticationPushController extends Controller
             'cnwk'=> $cnwk
              ]);
     }
+    
 }

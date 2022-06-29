@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "appthoviet",
+    "private_key_id": "c8fd831c06c14301cf3c20d811354a718ca8e54e",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7wONjgR/x2xS5\nijNFH92WGXyU2MiB7LKV32aQF7/Jl+/YQMS8RXRQCQGf8iBLGhg5VKrhJHpFDTt1\n3A1z1DR9nArMzHymLN/2GShEMra2UPS58/h50p4iHjWAUbXq6dE0Nmdjesph5WlD\nGu0qyGy0xYsFKG4keJE7niCictO7duMWi0oGt6huVhl42bfBQfyx5h0aYhfPROOS\nhf+S6btAhvD/tt8bL9AQGzqSYTG23U1T0uj+dVrPiXkjTvtJKPiULc8+IWEsH46t\nm1YDUI1oefX+OGVoWxmMiiS1RVCPt/a+n2lVddEkLHmiBKT+OUw3F2iyXIeJ7xvb\nZVpDkcvLAgMBAAECggEAD0nLGkii6cY9n0gWGaxZFkZYAyTN2uqDtjl9OAF/D/LL\nyG+ptWzwZi39kGEeaQ8kZtKyoWeffyzvKQ80lzhx18KTjI6gHcXsrLTqtvbsMtdP\nvi6UDpNsZfnQwHSm3AyTCO3fKFYQ0bzk/95a7o9obqXhRpe+tECPDuw22xN/kzWc\n0eyc/rXDthhsxbn4Is92vEUN6gte6GEhPRgjN+mddH5rtT1b9UZMR2OSacNL40Hc\nij2oP0eQbnTFdXe5Go9SHN8pgYycSwMQ4bL2PxyWc87VAL3xBJTTMRHe9ZNrb9V8\nExOFZM0WvTSjHi4DEdKnObBovu2hSc7yNaU+LloqsQKBgQDnO5EtwCHIjCWupAG6\nO31hpgNLdu4CeKMTbB67esPHC0PjmGMChF3+lgQL5lnhAR7/MsnEocfVsRjLuJx2\nhBbkFfDtEtT8C4yD2IK32iMBn+ZqUk9EwzH80Y/J47dOUJWH3aPPuPdguSrp6lOY\nc1OCNGffYt1X8pDGf5Dq25F3cQKBgQDP3R1r3nNpKSgNeLoQDNO26Bv9+8FeJazj\nizKN5WcCeW923H6qsT1YBy6T8qHxuUgEZFSNyE+bCnlpjLNOhkFrbqhq4LiaM6x/\nDf91mO995pfGsmnYvBk4doUD2Uiwd42Ci1M4sYGac25YZCSZtOjz8fYOwEin6CQq\nx5N9dRSw+wKBgFjWpul35sLhLV0Sf+NoFbzdhmiI8dqbNLQylwAao3smldesZWXD\nK0WzpyxXPPLYdms/vQtByMAOAWPLsrlJ+G17DIxY7uFDIqJJHbe7JDXslB8HLpNR\nlzP145OCXJvHFBwWCGi3PLu5iIZEVAe/Tzc4ISxPFJFEjWDmA+xnnVTRAoGAfJP7\nBCFIbihaduh6KxBk+uRVkn0GQVS3L5DHdb+dYyBAq64uxEKBj3aOdeEfKe5vuSIg\ngvEgtL0sUxQeittv7eFeUt/oA5MguO08w9ArCPvgzxcy1NC3FN4DjnD1Xb3pM+oo\nsHvCPz0bTyKFxRFl5H6JiAG6CdfZhUIjpTc8dW0CgYEAgx69jF+kF70h/c08CjH0\nHj+171CZQ0KMr+q+bZcXjmkW23frmhb5PU4V7GKHm0RF+JqXYsEcoOUevOUlWvsA\nRF9OkGH9g7hGAndgiGEbNc+piDfONdzpEQvscFsnLe06v9ADO1ECy2+4N93UunEA\nHRhFvTy1XLL8NeZwACFqlfY=\n-----END PRIVATE KEY-----\n",
+    "client_email": "firebase-adminsdk-h5wmy@appthoviet.iam.gserviceaccount.com",
+    "client_id": "102292517499614297180",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-h5wmy%40appthoviet.iam.gserviceaccount.com"
+}

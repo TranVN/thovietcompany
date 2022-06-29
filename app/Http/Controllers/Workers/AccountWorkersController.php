@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Workers;
 use App\Http\Controllers\Controller;
 use App\Models\AccountWorkers;
 use App\Models\MapWorkers;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Kreait\Firebase\Firestore;
+use Kreait\Laravel\Firebase\Facades\Firebase;
+
+use Kreait\Firebase\ServiceAccount;
+use Kreait\Firebase\Factory;
+use \Kreait\Firebase\Database;
+use Google\Cloud\Firestore\FirestoreClient;
 
 class AccountWorkersController extends Controller
 {
@@ -107,6 +115,24 @@ class AccountWorkersController extends Controller
         $newAcc -> active = 2;
 
         $newAcc->save();
+        $time = Carbon::now()->format('d/m/Y h:m:s');
+        
+        //Firestore crate
+        $factory = (new Factory)-> withServiceAccount(__DIR__.'/firebase-cer.json');
+        $fireStore = $factory->createFirestore();
+        $data = $fireStore->database();
+        $newChat = $data -> collection('chat')->document($request->id);
+        $newChat ->set(['group'=>$request->group]);
+        $newChat = $data-> collection('chat')->document($request->id)->collection('chat_worker')->newDocument();
+        $newChat ->set([
+            'content'=>' CHÀO MỪNG ĐẾN VỚI CÔNG TY TNHH DỊCH VỤ KỸ THUẬT THỢ VIỆT',
+            'img_path'=>'assets/images/iconTV.png',
+            'id_worker' =>'0',
+            'name_worker'=> " ADMIN THỢ VIỆT",
+            'time'=> "".$time,
+
+             ]);
+        // dd($serviceAcc);
         return redirect()->action('Workers\WorkerController@indexAdmin');
         // dd($newAcc->pass_worker);
     }
@@ -165,6 +191,11 @@ class AccountWorkersController extends Controller
                         $a[1] =$item->id_worker;
                         $a[2] = $device_key;
                         $a[3] = AccountWorkersController::checkDeviceKey($device_key,$acc_worker);
+                        $a[4] = $item->worker_name;
+                        $a[5] = $item->sort_name;
+                        $a[6] = $item->phone_ct;
+                        $a[7] = $item->phone_cn;
+
                         return  $a;
                     }
                     else

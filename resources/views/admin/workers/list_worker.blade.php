@@ -166,6 +166,7 @@
                                     @csrf
                                     <div class="modal-body">
                                             <input type='hidden' value='`+data.id+`' name='id'>
+                                            <input type='hidden' value='`+data.sort_name+`--`+data.worker_name+`' name='group'>
                                             <div class="form-group">
                                             <label for="exampleInputEmail1">Email address</label>
                                             <input type="email" name="accID" class="form-control" id="accID" aria-describedby="emailHelp" value="0`+ data.phone_ct+data.sort_name+`" readonly>
