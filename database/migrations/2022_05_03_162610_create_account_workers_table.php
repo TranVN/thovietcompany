@@ -21,7 +21,7 @@ class CreateAccountWorkersTable extends Migration
             $table ->string('device_key')->nullable();
             $table->longText('FCM_token')->nullable();
             $table->string('last_active')->nullable();
-            $table->tinyInteger('active')->default(0);
+            $table->tinyInteger('active')->default(0)->comment('0: tạm khóa; 1: mở; 2: khóa vĩnh viễn');
             $table ->tinyInteger('time_log')->default(0);
             $table->timestamps();
         });

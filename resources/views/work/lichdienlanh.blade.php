@@ -726,9 +726,20 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @php
+                                                                $image = DB::table('spending_total_images')->where('id_work_has' , '=',  $item->id)->get();
+                                                                $count = $image->count();
+                                                                // echo $images;
+                                                                
+                                                                @endphp
                                                                 <div class="col-3"></a>
                                                                     <!-- Button trigger modal -->
-                                                                    <button type="button" class="btn btn-primary btn-bg" data-toggle="modal" data-target="#incomeImage-{{$item->id}}">
+                                                                    <button type="button" class="btn btn-primary btn-bg 1
+                                                                    @php
+                                                                      if($count < 0){echo 'disabled';}  
+                                                                    @endphp
+                                                                    
+                                                                    " data-toggle="modal" data-target="#incomeImage-{{$item->id}}">
                                                                       Xem hình ảnh phiếu chi
                                                                     </button>
                                                                     <!-- Modal -->
@@ -742,11 +753,7 @@
                                                                                 <div class="modal-body">
                                                                                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                                                                         <div class="carousel-inner">
-                                                                                            @php
-                                                                                                $image = DB::table('spending_total_images')->where('id_work_has' , '=',  $item->id)->get();
-                                                                                                $count = $image->count();
-                                                                                                // echo $images;
-                                                                                            @endphp
+                                                                                           
                                                                                             @foreach ($image as $items)
                                                                                             {{-- nhớ thêm length vào database --}}
                                                                                             @if ($items->length == 0)

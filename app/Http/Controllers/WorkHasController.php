@@ -63,51 +63,23 @@ class WorkHasController extends Controller
         $value_warranty = $request->value_warranty;
         $warranty_day = $request->warranty_day;
         $warranty_content = $request->warranty_content;
-
-
         if ($status_work != 5) {
             if ($status_work == 0) {
-                switch ($value_warranty) {
-                    case 0:
-                        break;
-                    case 1:
-                        $warranty_day = $warranty_day * 7;
-                        break;
-                    case 2:
-                        $warranty_day = $warranty_day * 30;
-                        break;
-                    case 3:
-                        $warranty_day = 1;
-                        break;
-                    case 4:
-                        break;
-                }
-
-                if ($warranty_day != 1 && $warranty_day != null) {
-                    $warranty_day = Carbon::now()->addDay($warranty_day)->isoFormat('DD-MM-YYYY');
-                } else {
-                    if ($value_warranty == 4) {
-                        $warranty_day = Carbon::now()->isoFormat('DD-MM-YYYY');
-                        $warranty_content = 'Kiểm tra Không bảo hành';
-                    } else {
-                        $warranty_day = Carbon::now()->isoFormat('DD-MM-YYYY');
-                        $warranty_content = 'Không bảo hành';
-                    }
-                }
-
                 //check info warranty
                 if ($warranty_content == null) {
                     $warranty_content = $request->work_content;
                 }
                 if($spending_total == null){
-                    $spending_total =0;
+                    $spending_total = 0;
                 }
+                // dd($request);
                 $workHas = WorkHas::where('id', '=', $id)->update(['spending_total' => $spending_total, 'income_total' => $income_total, 'status_work' => '1', 'real_note' => $request->real_note], );
+                //save warranty
                 $updatwarranty = new Warranty;
-
                 $updatwarranty->id_cus = $request->id_cus;
                 $updatwarranty->warranty_info = $warranty_content;
                 $updatwarranty->warranty_time = $warranty_day;
+                $updatwarranty->unit = $request->unit;
                 $updatwarranty->save();
             } else {
                 $workHas = WorkHas::where('id', '=', $id)->update(['status_work' => '3', 'real_note' => $request->real_note]);
@@ -446,5 +418,17 @@ class WorkHasController extends Controller
                     "message"  => "kết nối thất bại",
                     "code" => 500
                 ]);
+    }
+    public function GetWarranties($id)
+    {
+        $warranty = Warranty::where('id_cus','=',$id)->get();
+        if($warranty->count())
+        {
+            return $warranty;
+        }
+       else
+       {
+        return '1';
+       }
     }
 }

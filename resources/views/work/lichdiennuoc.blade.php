@@ -737,10 +737,17 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                @php
+                                                                $image = DB::table('spending_total_images')->where('id_work_has' , '=',  $item->id)->get();
+                                                                $count = $image->count();
+                                                                // echo $images;
+                                                                @endphp
                                                                 <div class="col-3"></a>
                                                                     <!-- Button trigger modal -->
-                                                                    <button type="button" class="btn btn-primary btn-bg" data-toggle="modal" data-target="#incomeImage-{{$item->id}}">
-                                                                      Xem hình ảnh phiếu chi
+                                                                    <button type="button" class="btn btn-primary btn-bg" data-toggle="modal" data-target="#incomeImage-{{$item->id}}  @php
+                                                                    if($count == 0){echo 'disabled';}  
+                                                                  @endphp">
+                                                                      Vật Tư
                                                                     </button>
                                                                     <!-- Modal -->
                                                                     <div class="modal fade" id="incomeImage-{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -753,11 +760,11 @@
                                                                                 <div class="modal-body">
                                                                                     <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                                                                         <div class="carousel-inner">
-                                                                                            @php
+                                                                                            {{-- @php
                                                                                                 $image = DB::table('spending_total_images')->where('id_work_has' , '=',  $item->id)->get();
                                                                                                 $count = $image->count();
                                                                                                 // echo $images;
-                                                                                            @endphp
+                                                                                            @endphp --}}
                                                                                             @foreach ($image as $items)
                                                                                             {{-- nhớ thêm length vào database --}}
                                                                                             @if ($items->length == 0)
@@ -790,8 +797,13 @@
                                                                 </div>
                                                                 <div class="col-3">
                                                                 <!-- Button trigger modal -->
-                                                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#bill_{{$item->id}}">
-                                                                        Hình ảnh phiếu thu
+                                                                    <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#bill_{{$item->id}}"
+                                                                        @php
+                                                                            if($item->bill_imag == NULL)
+                                                                            {echo 'disabled';}
+                                                                        @endphp
+                                                                        >
+                                                                        Phiếu Thu
                                                                     </button>
                                                                     <!-- Modal -->
                                                                     <div class="modal fade" id="bill_{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -812,55 +824,100 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    {{-- thong tin bảo hành --}}
                                                     <label class="check-thu-chi">Thông tin bảo hành</label>
-                                                    <div class="card mb-1">
+                                                    <div class="mb-1">
                                                         <div class="card-body row">
-                                                            <div class="col-md-8">
-                                                                <div class="row">
-                                                                    <div
-                                                                        class="position-relative form-group col-md-2 ">
-                                                                        <input type="radio" name="value_warranty"
-                                                                            checked value="0">
-                                                                        <label>Ngày</label>
-                                                                    </div>
-                                                                    <div class="position-relative form-group col-md-2">
-                                                                        <input type="radio" name="value_warranty"
-                                                                            value="1">
-                                                                        <label>Tuần</label>
-                                                                    </div>
-                                                                    <div class="position-relative form-group col-md-2">
-                                                                        <input type="radio" name="value_warranty"
-                                                                            value="2">
-                                                                        <label>Tháng</label>
-                                                                    </div>
-                                                                    <div class="position-relative form-group col-md-3">
-                                                                        <input type="radio" name="value_warranty"
-                                                                            value="3">
-                                                                        <label>Không bảo hành</label>
-                                                                    </div>
-                                                                    <div class="position-relative form-group col-md-3">
-                                                                        <input type="radio" name="value_warranty"
-                                                                            value="4">
-                                                                        <label>Phí kiểm tra</label>
-                                                                    </div>
-                                                                    <div class="col-md-12">
-                                                                        <div class="position-relative form-group">
-                                                                            <input type="number" name="warranty_day"
-                                                                                placeholder="Nhập số ngày, tuần, tháng"
-                                                                                class="form-control">
+                                                                @if ($item->status_work == 0 )
+                                                                <div class="col-md-8">
+                                                                    <div class="row">
+                                                                        <div
+                                                                            class="position-relative form-group col-3 ">
+                                                                            <input type="radio" name="unit"
+                                                                                checked value="d">
+                                                                            <label>Ngày</label>
+                                                                        </div>
+                                                                        <div class="position-relative form-group col-3">
+                                                                            <input type="radio" name="unit"
+                                                                                value="w">
+                                                                            <label>Tuần</label>
+                                                                        </div>
+                                                                        <div class="position-relative form-group col-3">
+                                                                            <input type="radio" name="unit"
+                                                                                value="m">
+                                                                            <label>Tháng</label>
+                                                                        </div>
+                                                                        <div class="position-relative form-group col-3">
+                                                                            <input type="radio" name="unit"
+                                                                                value="k">
+                                                                            <label>Không bảo hành</label>
+                                                                        </div>
+                                                                       
+                                                                        <div class="col-md-12">
+                                                                            <div class="position-relative form-group">
+                                                                                <input type="number" name="warranty_day"
+                                                                                    placeholder="Nhập số ngày, tuần, tháng"
+                                                                                    class="form-control">
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="col-md-4">
-                                                                <label>Nội dung bảo hành cụ thể:</label>
-                                                                <div class="position-relative form-group">
-                                                                    <textarea name="warranty_content" type="text" class="form-control"> </textarea>
+                                                                <div class="col-md-4">
+                                                                        <label>Nội dung bảo hành cụ thể:</label>
+                                                                        <div class="position-relative form-group">
+                                                                            <textarea name="warranty_content" type="text" class="form-control"> </textarea>
+                                                                        </div>
                                                                 </div>
-                                                            </div>
+                                                                    
+                                                                @else
+                                                                    @if  ($item->status_work == 5 )
+                                                                        
+                                                                    @else
+                                                                    <div class="col-md-8">
+                                                                        <div class="row" style="width:100% !impotant">
+                                                                            <div class="position-relative form-group col-3 ">
+                                                                                <input type="radio" name="unit"
+                                                                                    checked value="d">
+                                                                                <label>Ngày</label>
+                                                                            </div>
+                                                                            <div class="position-relative form-group col-3">
+                                                                                <input type="radio" name="unit"
+                                                                                    value="w">
+                                                                                <label>Tuần</label>
+                                                                            </div>
+                                                                            <div class="position-relative form-group col-3">
+                                                                                <input type="radio" name="unit"
+                                                                                    value="m">
+                                                                                <label>Tháng</label>
+                                                                            </div>
+                                                                            <div class="position-relative form-group col-3">
+                                                                                <input type="radio" name="unit"
+                                                                                    value="k">
+                                                                                <label>Không bảo hành</label>
+                                                                            </div>
+                                                                        
+                                                                            <div class="col-md-12">
+                                                                                <div class="position-relative form-group">
+                                                                                    <input type="number" name="warranty_day"
+                                                                                        placeholder="Nhập số ngày, tuần, tháng"
+                                                                                        class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <label>Nội dung bảo hành cụ thể:</label>
+                                                                        <div class="position-relative form-group">
+                                                                            <textarea name="warranty_content" type="text" class="form-control"> </textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    @endif
+                                                                 @endif
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
+                                                    {{-- xóa lịch đã phân --}}
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target=".xoalichdaphan{{ $item->id }}">Xóa
@@ -1163,7 +1220,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </tr>
                     @endforeach
                 </tbody>

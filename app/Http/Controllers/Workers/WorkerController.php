@@ -260,7 +260,7 @@ class WorkerController extends Controller
     public function getHistoryWorkForWorker(Request $request)
     {
         $id = $request->id_worker;
-
+        
         $findHistoryWork = DB::table('work_has')
             ->leftJoin('works', 'works.id', '=', 'work_has.id_cus')
             ->leftJoin('workers', 'workers.id', '=', 'work_has.id_worker')
@@ -270,6 +270,7 @@ class WorkerController extends Controller
             ->orderByDesc('id')
             ->limit(100)
             ->get(['work_has.id', 'works.name_cus', 'works.work_content', 'works.date_book', 'works.street', 'works.district', 'works.phone_number', 'work_has.income_total','work_has.spending_total','warranties.warranty_time','warranties.warranty_info']);
+
             return $findHistoryWork;
         
     }
@@ -280,6 +281,7 @@ class WorkerController extends Controller
         $id_work_has = $request->id_work_has;
         $id_cus = $request->id_cus;
         $id_worker = $request->id_worker;
+        // $note = $request->note_work;
         if($id_work_has != null && $id_cus != null)
         {   
             $find = DB::table('work_has')->where('id','=',$id_work_has)->get(['id_cus','id_worker']);
@@ -289,7 +291,7 @@ class WorkerController extends Controller
                 foreach($find as $item){
                     if($item->id_cus == $id_cus)
                     {
-                        $findReturnWorkHas = DB::table('work_has')->where('id','=',$id_work_has)->update(['status_work'=>4]);
+                        $findReturnWorkHas = DB::table('work_has')->where('id','=',$id_work_has)->update(['status_work'=>4 ]);
                         $findReturnWork = DB::table('works')->where('id','=',$item->id_cus)->update(['status_cus'=> 0,'work_note'=>$request->work_note]);
                         WorkerController::workReturnPush($id_worker,$id_cus,$id_cus);
                         return 1;
@@ -361,7 +363,7 @@ class WorkerController extends Controller
 
     public function getTokenFCM($id)
     {   
-        $token_fcm = DB::table('account_workers')->where('id_worker','=',$id)->value('device_key');
+        $token_fcm = DB::table('account_workers')->where('id_worker','=',$id)->value('FCM_token');
         return  $token_fcm ;
     }
     // sen to app noti push 

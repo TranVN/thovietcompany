@@ -48,7 +48,7 @@ class WorkController extends Controller
         ->where('kind_work', '=', '0')
         ->orderByDesc('workers.sort_name')
         ->where('date_book', 'like', $today)
-        ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
+        ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total','work_has.status_work', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
 
         // ĐIỆN LẠNH
         $air = DB::table('works')
@@ -67,7 +67,7 @@ class WorkController extends Controller
         ->where('kind_work', '=', '1')
         ->orderByDesc('workers.sort_name')
         ->where('date_book', 'like', $today)
-        ->get(['work_has.id','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
+        ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total','work_has.status_work', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
 
         // XÂY DỰNG
         $build = DB::table('works')
@@ -86,7 +86,7 @@ class WorkController extends Controller
         ->where('kind_work', '=', '3')
         ->orderByDesc('workers.sort_name')
         ->where('date_book', 'like', $today)
-        ->get(['work_has.id','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
+        ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total','work_has.status_work', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
 
         // ĐỒ GỖ
         $wood = DB::table('works')
@@ -105,7 +105,7 @@ class WorkController extends Controller
         ->where('kind_work', '=', '2')
         ->orderByDesc('workers.sort_name')
         ->where('date_book', 'like', $today)
-        ->get(['work_has.id','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
+        ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total','work_has.status_work', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
 
         // KHÁC
         $else = DB::table('works')
@@ -125,7 +125,7 @@ class WorkController extends Controller
 
         ->orderByDesc('workers.sort_name')
         ->where('date_book', 'like', $today)
-        ->get(['work_has.id','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
+        ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total','work_has.status_work', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
         $worker = DB::table('workers')
         ->orderBy('sort_name')->get();
         return view('dashboard', compact('elec', 'air', 'build', 'wood', 'else', 'elecHas', 'airHas', 'buildHas', 'woodHas', 'elseHas', 'worker', 'today', 'todayView'));

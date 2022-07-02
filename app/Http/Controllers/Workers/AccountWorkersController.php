@@ -140,7 +140,7 @@ class AccountWorkersController extends Controller
     public function checkDeviceKey($key, $id)
 
     {
-        $a =AccountWorkers::where('acc_worker','=',$id)->value('device_key');
+        $a = AccountWorkers::where('acc_worker','=',$id)->value('device_key');
         if($a)
         {
             if($a == $key)
@@ -148,7 +148,10 @@ class AccountWorkersController extends Controller
                 return 1;// đăng nhập lại trên thiết bị
             }
             else
+            {
+                AccountWorkers::where('acc_worker','=',$id)->update(['active'=> 0]);
                 return 2;// Đăng nhập bằng 1 thiết bị khác - Vui lòng thông báo admin để mở khóa thiết bị mới của bạn
+            }
         }
         else
             return 3;//Key null lần đầu đang nhập 
@@ -186,25 +189,25 @@ class AccountWorkersController extends Controller
                     if(Hash::check($pass_worker,$item->pass_worker)) 
                     {  
 
-                        AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['time_log'=>'0','device_key'=>$device_key,'last_active'=>date('y-m-d H:i:s')]);
                         $a[0] = 0;
                         $a[1] =$item->id_worker;
-                        $a[2] = $device_key;
-                        $a[3] = AccountWorkersController::checkDeviceKey($device_key,$acc_worker);
-                        $a[4] = $item->worker_name;
-                        $a[5] = $item->sort_name;
-                        $a[6] = $item->phone_ct;
-                        $a[7] = $item->phone_cn;
+                        $a[2] = AccountWorkersController::checkDeviceKey($device_key,$acc_worker);
+                        $a[3] = $item->worker_name;
+                        $a[4] = $item->sort_name;
+                        $a[5] = $item->phone_ct;
+                        $a[6] = $item->phone_cn;
+                        AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['time_log'=>'0','device_key'=>$device_key,'FCM_token'=>$request->fcm_token,'last_active'=>date('y-m-d H:i:s')]);
 
                         return  $a;
                     }
                     else
                     {
                         $item->time_log += 1;
-                        AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['time_log'=>$item->time_log,'device_key'=>$device_key]);
+                        // AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['time_log'=>$item->time_log,'device_key'=>$device_key]);
                         $b[0] = 1;
                         $b[1] = $item->time_log;
                         $b[2] = AccountWorkersController::checkDeviceKey($device_key,$acc_worker);
+                        AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['time_log'=>$item->time_log,'device_key'=>$device_key]);
 
                         // đã đăng nhập sai bao nhiêu lần = checkWrong
                         return  $b;
@@ -213,7 +216,7 @@ class AccountWorkersController extends Controller
                 else 
                     // Tài khoản đã đang nhập sai quá 3 lần vui lòng liên hệ ADMIN
                     {
-                        AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['active'=>'2']);
+                        AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['active'=>'0']);
                         $c[0] = 2;
                        
                         return $c;
