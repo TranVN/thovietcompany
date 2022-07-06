@@ -11,7 +11,9 @@
             <li class="nav-item">
               <a class="nav-link" id="notication-tab" data-toggle="tab" href="#notication" role="tab" aria-controls="notication" aria-selected="false">Lịch từ App Khách</a>
             </li>
-            
+            <li class="nav-item">
+                <a class="nav-link" id="needwork-tab" data-toggle="tab" href="#needwork" role="tab" aria-controls="needwork" aria-selected="false">Thợ xin lich</a>
+              </li>
         </ul>
     </div>
     
@@ -161,6 +163,88 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="needwork" role="tabpanel" aria-labelledby="needwork-tab">
+            <div class="d-flex justify-content-end p-3">
+                <form
+                    action="{{ route('upNeedWork', ['id' => 'all']) }}"
+                    method="post">
+                    @csrf
+                    <input type="hidden" name="id" value="all">
+                    <button type="submit" class="btn btn-outline-success" title="Đánh dấu tất cả đã đọc">
+                        <svg class="bi" width="20" height="20"
+                            fill="currentColor">
+                            <use
+                                xlink:href="icon/bootstrap-icons.svg#check" />
+                        </svg>
+                    </button>
+                </form> 
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="main-card mb-4 card">
+                        <div class="card-body ">
+                            <div class="row">
+                                <table class="table table-hover text-center" id="tbDLC">
+                                    <thead>
+                                        <tr class="text-center">
+                                            <th>Tên Thợ</th>
+                                            <th>Nội dung</th>
+                                            <th>Nhân viên đọc</th>
+                                            <th>Thời gian</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($needWork as $item)
+                                            <tr>
+                                                <td>
+                                                    @php
+                                                   $info   = DB::table('workers')->where('id','=',$item->id)->get();
+                                                    foreach($info as $it2em)
+                                                    {
+                                                        echo $it2em->worker_name . ' - ' . $it2em->sort_name;
+                                                    } 
+                                                    @endphp
+                                                </td>
+                                                <td>{{ $item->content }}</td>
+                                                <td>{{ $item->member_read }}</td>
+                                                <td>{{ $item->created_at }}</td>
+                                                <td>
+                                                    @if ($item->flag_status == 1)
+                                                        <button type="button" title="Đã đọc" disabled>
+                                                            <svg class="bi" width="20" height="20"
+                                                                fill="currentColor">
+                                                                <use
+                                                                    xlink:href="icon/bootstrap-icons.svg#eye-slash" />
+                                                            </svg>
+                                                        </button>
+                                                    @else
+                                                        <form
+                                                            action="{{ route('upNeedWork', ['id' => $item->id]) }}"
+                                                            method="post">
+                                                            @csrf
+                                                            <input type="hidden" name="name" value="{{Auth::user()->id}}">
+                                                            <button type="submit" title="Chưa đọc">
+                                                                <svg class="bi" width="20" height="20"
+                                                                    fill="currentColor">
+                                                                    <use
+                                                                        xlink:href="icon/bootstrap-icons.svg#eye" />
+                                                                </svg>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
             </div>
         </div>
     </div>  

@@ -35,9 +35,12 @@
           </div>
           
           <div class="menu-noti col-2 justify-content-end d-flex dropleft">
-              <button type="button" class="btn btn-outline-success my-2 my-sm-0 pr-3 dropdown-toggle dropdown-toggle-split col-4 " data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-bell"></i>
-              </button>
+            <div class="row">
+              <div class="col-6">
+                <button type="button" class="btn btn-outline-success my-2 my-sm-0 pr-3 dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-bell"></i>
+                </button>
+                <span id="countnoticationMobile" class="badge"></span>
               <div class="dropdown-menu ">
                 <!-- Dropdown menu links -->
                   <div id="newWork" >
@@ -49,12 +52,18 @@
                     </ul>
                   </div>
               </div>
-              <form class="form-inline my-2 my-lg-0 col-6" method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button class=" btn btn-outline-danger my-2 my-sm-0" type="submit" data-toggle="collapse" data-target="#showNoti" aria-controls="navbarSupportedContenn" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fa fa-sign-out"></i>
-                </button> 
-              </form>
+              </div>
+              <div class="col-6">
+                <form class="form-inline my-2 my-lg-0 col-6" method="POST" action="{{ route('logout') }}">
+                  @csrf
+                  <button class=" btn btn-outline-danger my-2 my-sm-0" type="submit" data-toggle="collapse" data-target="#showNoti" aria-controls="navbarSupportedContenn" aria-expanded="false" aria-label="Toggle navigation">
+                      <i class="fa fa-sign-out"></i>
+                  </button> 
+                </form>
+              </div>
+            </div>
+               
+              
           </div>
       
     </div>

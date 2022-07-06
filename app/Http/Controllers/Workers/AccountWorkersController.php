@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Workers;
 use App\Http\Controllers\Controller;
 use App\Models\AccountWorkers;
 use App\Models\MapWorkers;
+use App\Models\Worker;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -192,10 +193,16 @@ class AccountWorkersController extends Controller
                         $a[0] = 0;
                         $a[1] =$item->id_worker;
                         $a[2] = AccountWorkersController::checkDeviceKey($device_key,$acc_worker);
-                        $a[3] = $item->worker_name;
-                        $a[4] = $item->sort_name;
-                        $a[5] = $item->phone_ct;
-                        $a[6] = $item->phone_cn;
+                        $info = Worker::where('id','=',$item->id_worker)->get();
+                        foreach ($info as $i)
+                        { 
+                            $a[3] = $i->worker_name;
+                            $a[4] = $i->sort_name;
+                            $a[5] = $i->phone_ct;
+                            $a[6] = $i->phone_cn;
+
+                        }
+                      
                         AccountWorkers::where('acc_worker','=',$acc_worker)-> update(['time_log'=>'0','device_key'=>$device_key,'FCM_token'=>$request->fcm_token,'last_active'=>date('y-m-d H:i:s')]);
 
                         return  $a;

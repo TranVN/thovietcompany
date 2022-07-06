@@ -238,6 +238,16 @@ class WorkerController extends Controller
     public function impWorker(){
         return  view('admin.data_imp.importWorker');
     }
+    // get Worker Name
+    public function getWorkerName($id)
+    {
+        $info    = Worker::where('id','=',$id)->get();
+        foreach($info as $item)
+        {
+            $a = $item->name_worker . '  ' . $item->sort_name;
+        } 
+        return $a;
+    }
     
     public function getWorkForWorker(Request $request)
     {

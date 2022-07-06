@@ -216,9 +216,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::prefix('/notification-mobile')->group(function () {
         Route::get('/','NoticationPushController@indexMobile');
         Route::get('/{id}/update','NoticationPushController@updateMobile')-> name('upNotiMobile');
+        Route::post('/{id}/updateNeedWork','NoticationPushController@updateNeedWork')-> name('upNeedWork');
     });
 
     Route::post('countnotiMobile','NoticationPushController@unreadNotiMobile');
+    Route::post('markRead','NoticationPushController@markreadNotiMobile');
     Route::post('countnotiPushFirebaseMobile','NoticationPushController@unreadPushFirebaseNotiMobile');
     Route::post('makeToken','NoticationPushController@storeToken');
     Route::get('home-image', 'FilePhotoController@index');

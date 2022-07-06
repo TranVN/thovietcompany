@@ -6,47 +6,47 @@ var pageUrl = getBaseURL();
 /// MAKE TOKEN
 
 
-$(document).ready(function() {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    window.app_absolute = '<?php echo GetRelativePath(dirname(__FILE__)); ?>';
+// $(document).ready(function() {
+//     $.ajaxSetup({
+//         headers: {
+//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//         }
+//     });
+//     window.app_absolute = '<?php echo GetRelativePath(dirname(__FILE__)); ?>';
 
-    function startFCM() {
-        messaging
-            .requestPermission()
-            .then(function() {
-                return messaging.getToken()
-            })
-            .then(function(response) {
+//     function startFCM() {
+//         messaging
+//             .requestPermission()
+//             .then(function() {
+//                 return messaging.getToken()
+//             })
+//             .then(function(response) {
 
-                $.ajax({
-                    url: pageUrl + 'makeToken',
-                    type: 'POST',
-                    dataType: 'JSON',
-                    data: {
-                        token: response
-                    },
-                    success: function(response) {
+//                 $.ajax({
+//                     url: pageUrl + 'makeToken',
+//                     type: 'POST',
+//                     dataType: 'JSON',
+//                     data: {
+//                         token: response
+//                     },
+//                     success: function(response) {
 
-                    },
+//                     },
 
-                    error: function(error) {
-                        // alert(error);
-                    },
-                });
+//                     error: function(error) {
+//                         // alert(error);
+//                     },
+//                 });
 
-            }).catch(function(error) {
-                // alert(error);
-            });
-    }
+//             }).catch(function(error) {
+//                 // alert(error);
+//             });
+//     }
 
-    setInterval(function() {
-        startFCM();
-    }, 7000);
-});
+//     setInterval(function() {
+//         startFCM();
+//     }, 7000);
+// });
 
 /// PUSH NOTIFICATION CÔNG VIỆC APPP
 $(document).ready(function() {
@@ -95,15 +95,15 @@ $(document).ready(function() {
             dataType: "json",
             success: function(data) {
                 $('#menu_notiAppMobile').html(data.notificationMobile);
-                $('#menu_notiWorker').html(data.notificationWorker);
+                $('#menu_notiWorkerPlus').html(data.notificationWorker);
                 if (data.unseen_notificationMobile > 0) {
                     $('#countnoticationMobile').html(data.unseen_notificationMobile);
-                    var myAudio = new Audio(pageUrl + "/dist/mp3/1.mp3");
-                    myAudio.play();
-                    setTimeout(function() {
-                        myAudio.pause();
-                        myAudio.currentTime = 0;
-                    }, 5000);
+                    // var myAudio = new Audio(pageUrl + "/dist/mp3/1.mp3");
+                    // myAudio.play();
+                    // setTimeout(function() {
+                    //     myAudio.pause();
+                    //     myAudio.currentTime = 0;
+                    // }, 5000);
 
                 }
             }
@@ -146,44 +146,44 @@ function srolltoKhac() {
     element.scrollIntoView();
 }
 
-// // / ĐẾM THÔNG BÁO
-// $(document).ready(function() {
-//     // updating the view with notifications using ajax
-//     function load_unseen_notification(view = '') {
+// / ĐẾM THÔNG BÁO
+$(document).ready(function() {
+    // updating the view with notifications using ajax
+    function load_unseen_notification(view = '') {
 
 
-//         $.ajax({
-//             url: pageUrl + '/countnoti',
-//             method: "post",
+        $.ajax({
+            url: pageUrl + 'countnotiMobile',
+            method: "post",
 
-//             data: { view: view },
-//             dataType: "json",
-//             success: function(data) {
-//                 $('#menu_notiApp').html(data.notification);
-//                 if (data.unseen_notification > 0) {
-//                     $('#countnotication').html(data.unseen_notification);
-//                     var myAudio = new Audio(pageUrl + "/dist/mp3/1.mp3");
-//                     myAudio.play();
-//                     setTimeout(function() {
-//                         myAudio.pause();
-//                         myAudio.currentTime = 0;
-//                     }, 7000);
-//                     console.log(data.unseen_notification);
-//                 }
-//             }
-//         });
-//     }
-//     load_unseen_notification();
-//     $(document).on('click', '#noti_app', function() {
-//         $('#count').html('');
-//         load_unseen_notification('yes');
+            data: { view: view },
+            dataType: "json",
+            success: function(data) {
+                $('#menu_notiApp').html(data.notification);
+                if (data.unseen_notification > 0) {
+                    $('#countnotication').html(data.unseen_notification);
+                    var myAudio = new Audio(pageUrl + "/dist/mp3/1.mp3");
+                    myAudio.play();
+                    setTimeout(function() {
+                        myAudio.pause();
+                        myAudio.currentTime = 0;
+                    }, 7000);
+                    console.log(data.unseen_notification);
+                }
+            }
+        });
+    }
+    load_unseen_notification();
+    $(document).on('click', '#noti_app', function() {
+        $('#count').html('');
+        load_unseen_notification('yes');
 
-//     });
+    });
 
-//     setInterval(function() {
-//         load_unseen_notification();
-//     }, 7000);
-// });
+    setInterval(function() {
+        load_unseen_notification();
+    }, 7000);
+});
 
 // function sentMess() {
 //     var content_chat = document.getElementById('content_chat').value;

@@ -83,9 +83,10 @@ class NoticationPushController extends Controller
         ->leftJoin('work_has','work_has.id','=','push_noti_from_workers.id_work_has')
         ->leftJoin('works','works.id','=','work_has.id_cus')
         ->leftJoin('workers','workers.id','=','work_has.id_worker')
-        ->where('push_noti_from_workers.flag','=','0')->get(['works.work_content','works.street','works.phone_number','workers.worker_name','workers.sort_name','push_noti_from_workers.content_push','push_noti_from_workers.id','push_noti_from_workers.flag']);
-        
-        return view('app.notication_mobile', compact('noticationPushMobile','hihi'));
+        ->where('push_noti_from_workers.flag','=','0')
+        ->get(['works.work_content','works.street','works.phone_number','workers.worker_name','workers.sort_name','push_noti_from_workers.content_push','push_noti_from_workers.id','push_noti_from_workers.flag']);
+        $needWork = DB::table('need_works')->limit(100)->orderByDesc('id')->get();
+        return view('app.notication_mobile', compact('noticationPushMobile','hihi','needWork'));
     }
 
 
@@ -181,6 +182,8 @@ class NoticationPushController extends Controller
         ->where('from_cus','=',1)
         ->where('flag_status','=',0)
         ->get();
+
+
         $outp = '';
         $outp2 = '';
         $cnoti = count($noticationPush);
@@ -190,7 +193,7 @@ class NoticationPushController extends Controller
         if($cnoti != 0){
             foreach ($noticationPush as $item){
                 $outp .= '
-                    <ul class = "row">
+                    <ul class="row">
                         <li class="col-8">'.$item->work_content.'</li>
                         <li class="col-4" >'.$item->district.'</li>
                     </ul>
@@ -247,6 +250,22 @@ class NoticationPushController extends Controller
             'data'=> $workerStatus,
             'cnwk'=> $cnwk
              ]);
+    }
+    // update need work status
+    public function updateNeedWork($id)
+    {
+        // dd($id);
+    
+       if($id == 'all')
+       {
+        // dd($id);
+        NeedWork::where('flag_status','=',0)->update(['flag_status'=>'1','member_read'=>Auth::user()->name]);
+       }
+       else
+       {
+        NeedWork::where('id','=',$id)->update(['flag_status'=>'1','member_read'=>Auth::user()->name]);
+       }
+       return redirect()->action('NoticationPushController@indexMobile');
     }
     
 }
