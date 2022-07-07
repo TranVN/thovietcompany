@@ -276,6 +276,7 @@ class WorkerController extends Controller
             ->leftJoin('workers', 'workers.id', '=', 'work_has.id_worker')
             ->leftJoin('warranties', 'warranties.id_cus', '=', 'work_has.id_cus')
             ->where('work_has.id_worker','=',$id)
+            ->where('work_has.created_at','like',"$request->date".'%')
             ->where('status_work', '=', 1)
             ->orderByDesc('id')
             ->limit(100)

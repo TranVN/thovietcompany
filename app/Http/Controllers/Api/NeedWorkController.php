@@ -9,7 +9,7 @@ use App\Models\NeedWork;
 
 class NeedWorkController extends Controller
 {
-
+    
     public function WorkerNeedWork(Request $req)
     {
         $need = new NeedWork();
@@ -17,7 +17,7 @@ class NeedWorkController extends Controller
         $need -> content = 'Xin lịch !';
         $need -> save();
         if($need){
-            return 'OK';
+            return 1;
         }
     }
 }

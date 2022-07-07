@@ -198,7 +198,7 @@
                          }
                         message_view += `
                         </div>
-                    </li>`;
+                        </li>`;
                     }
                     else{
                         console.log('Null1111111111111111111111111111111111');
@@ -342,7 +342,8 @@
         // Button callback
     //add new noti
     $('#OpenImgUpload2').click(function(){ $('#imgupload2').trigger('click'); });
-    $('#sent_message').click(function(){
+    $('#sent_message').click(sentMess());
+    function sentMess(){
             var content_mess = $("#content_chat2").val();
             var id_doc = 'noti';
             let time = moment().format('L h:mm:ss');
@@ -454,11 +455,18 @@
                 }
            }
             
-    });
+    }
     $("#sent_message").on("click", function(event) {
                     $("#content_chat2").val("");
                     $("#imgupload2").val("");
     });
+    window.addEventListener("keydown", function (e) { if (13 == e.keyCode) { 
+        // var a = document.getElementById('content_chat');
+        // alert( $("#content_chat2").val() )
+        event.preventDefault();
+        sentMess();
+        
+    }});  
       
     </script>
     @endsection
