@@ -75,7 +75,7 @@ class MultiUploadController extends Controller
                     $find->income_total = $request->income_total;
                     $find->spending_total = $request ->spending_total;
                     $find->seri_number = $seri_number;
-                    $find->status_work = 1;
+                    $find->status_work = 2;
                     $find->bill_imag =$path;
                     $find->save();
                 //  return $request->length_war;

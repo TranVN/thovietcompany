@@ -21,51 +21,51 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //
 Route::get('home','Api\NewWorkController@index');
 
-
+// APP KHACH
 // THÊM LỊCH APP
-Route::post('addWork','Api\NewWorkController@store');
+Route::post('addWork','Api\Cus\CustomerController@store');
 
 // SHOW BANNER APP
-Route::post('showBanner','Api\NewWorkController@showBanner');
+Route::post('showBanner','Api\Cus\CustomerController@showBanner');
 
 // SHOW LỊCH SỬ ĐẶT LỊCH USER
-Route::post('showHistory','Api\NewWorkController@showHistory');
+Route::post('showHistory','Api\Cus\CustomerController@showHistory');
 
 // CHECK USER APP TỒN TẠI 
-Route::post('checkUser','Api\NewWorkController@checkUser');
+Route::post('checkUser','Api\Cus\CustomerController@checkUser');
 
 // ĐĂNG KÍ USER
-Route::post('registerUser','Api\NewWorkController@register');
+Route::post('registerUser','Api\Cus\CustomerControllerr@register');
 
 // ĐĂNG NHẬP USER
-Route::post('loginUser','Api\NewWorkController@login');
+Route::post('loginUser','Api\Cus\CustomerController@login');
 
 // ĐỔI MẬT KHẨU - CHƯA TRIỂN KHAI
-Route::post('changePassword','Api\NewWorkController@changePassword');
+Route::post('changePassword','Api\Cus\CustomerController@changePassword');
 
 // ĐỔI MẬT KHẨU USER
-Route::post('resetPassword','Api\NewWorkController@resetPassword');
+Route::post('resetPassword','Api\Cus\CustomerController@resetPassword');
 
 // TẠO MẬT KHẨU MỚI CHO USER
-Route::post('providePassword','Api\NewWorkController@providePassword');
+Route::post('providePassword','Api\Cus\CustomerControllerr@providePassword');
 
 // THÊM - CHỈNH SỬA THÔNG TIN USER
-Route::post('insertInforUser','Api\NewWorkController@insertInforUser');
+Route::post('insertInforUser','Api\Cus\CustomerController@insertInforUser');
 
 // SHOW THÔNG TIN USER
-Route::post('viewInforUser','Api\NewWorkController@viewInforUser');
+Route::post('viewInforUser','Api\Cus\CustomerController@viewInforUser');
 
 // UPLOAD AVATAR USER
-Route::post('uploadAvatarUser','Api\NewWorkController@uploadAvatarUser');
+Route::post('uploadAvatarUser','Api\Cus\CustomerController@uploadAvatarUser');
 
 // GET AVATAR USER
-Route::post('getAvatarUser','Api\NewWorkController@getAvatarUser');
+Route::post('getAvatarUser','Api\Cus\CustomerController@getAvatarUser');
 
 // PRICE APP
 Route::post('getPriceByID/{id}', 'PriceListController@getPriceByID');
 
 // GET content sale
-Route::get('getContentSale','ViewSaleController@getApiSaleContent');
+Route::get('getContentSale','Api\Cus\ViewSaleController@getApiSaleContent');
 // GET content sale
 Route::get('getAllRss','RssPostController@getAllRss');
 //----------------------------APP Thợ -----------------------------------------

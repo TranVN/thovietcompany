@@ -112,7 +112,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
            //view sale app
            Route::prefix('view-app')->group(function(){
             Route::get('/','ViewSaleController@index');
-            // Route::get('/','ViewSaleController@show');
+            Route::post('/eS','ViewSaleController@endSoon');
             Route::post('/update','ViewSaleController@update');
             // Route::get('/show/{id}','PostsController@show');
             Route::post('/store','ViewSaleController@store')->name('store');

@@ -38,7 +38,7 @@
                                                 <input type="date" name="time_end" class="form-control" required>
                                             </div>
                                             <div class="col-4 mt-2"><label for="" >% khuyến mãi </label></div>
-                                            <div class="col-8 mt-2"><input type="number" name="sale_percent" class="form-control"></div>
+                                            <div class="col-8 mt-2"><input type="number" name="sale_percent" class="form-control" required></div>
                                             <div class="col-4 mt-2"><label for="imag" >Chon hình ảnh: </label></div>
                                             <div class="col-6 mt-2"><input type="text" class="form-control" name="image_path" id="urlUpdate1" readonly></div>
                                             <div class="col-2 mt-2">
@@ -65,7 +65,7 @@
                             <th colspan="1">Hình Ảnh</th>
                             <th colspan="1">Bắt đầu</th>
                             <th colspan="1">Kết thúc</th>
-                            
+                            <th colspan="1">Kết thúc</th>
                             <th colspan="1">Sửa</th>
                         </tr>
                     </thead>
@@ -92,6 +92,7 @@
                             </td>
                             <td colspan="1" > {{ $item->time_begin }}</td>
                             <td colspan="1" > {{ $item->time_end }}</td>
+                            <td colspan="1" > <a href="view-app/eS?id={{$item->id}}"> end</a></td>
                             <td colspan="1">  
                                
                                 <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#suanoidung{{$item->id}}">
@@ -111,16 +112,23 @@
                                                     <div class="form-row">
                                                         <div class="col-6">
                                                             <label for="" class="mt-2">Thơi gian bắt đầu </label>
-                                                            <input type="date" name="time_begin" class="form-control" value="{{ $item->time_begin }}">
+                                                            <input type="date" name="time_begin" class="form-control" required>
                                                         </div>
                                                         <div class="col-6"> 
                                                             <label for="" class="mt-2">Thơi gian kế thúc </label>
-                                                            <input type="date" name="time_end" class="form-control" value="{{ $item->time_end }}">
+                                                            <input type="date" name="time_end" class="form-control" required>
                                                         </div>
-                                                    </div>
+                                                        <div class="col-4 mt-2"><label for="" >% khuyến mãi </label></div>
+                                                        <div class="col-8 mt-2"><input type="number" name="sale_percent" class="form-control" required></div>
+                                                        <div class="col-4 mt-2"><label for="imag" >Chon hình ảnh: </label></div>
+                                                        <div class="col-6 mt-2"><input type="text" class="form-control" name="image_path" id="urlUpdate1" readonly></div>
+                                                        <div class="col-2 mt-2">
+                                                            <button class="btn btn-outline-success my-2 my-sm-0" onclick="openPopupUpdate()" type="button">Edit</button>
+                                                        </div>
+                                                    
                                                     @if ($item->content_view_sale != null)
                                                     <input type="hidden" name='flag' value="0">
-                                                        <textarea name="content_view_sale" id="" cols="30" rows="10" class="form-control mt-2">{{ $item->content_view_sale }}</textarea>
+                                                    <textarea name="content_view_sale" id="" cols="30" rows="10" class="form-control mt-2">{{ $item->content_view_sale }}</textarea>
                                                     @else
                                                         <div class="form-row">
                                                             <input type="hidden" name='flag' value="1">
@@ -130,6 +138,7 @@
                                                             </div>
                                                         </div>
                                                     @endif
+                                                    </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="submit" class="btn btn-primary">Lưu</button>

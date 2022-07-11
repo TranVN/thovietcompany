@@ -37,35 +37,68 @@ class ViewSaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        if($request->content_view_sale == NULL && $request->image_path != NULL ){
-            $newSale = new ViewSale();
-            $newSale -> flag ='0';
-            $newSale -> time_begin = $request-> time_begin;
-            $newSale ->  time_end = $request-> time_end;
-            $newSale -> image_path = $request->image_path;
-            $newSale->save();
-    
-            return redirect()->action('ViewSaleController@index')->with('status','Thêm Thành Công!');
-        }
-
-        else if($request->content_view_sale != NULL && $request->image_path == NULL)
+       
+      
+        if($request->content_view_sale != NULL && $request->image_path == !NULL)
         {
             $newSale = new ViewSale();
             $newSale -> content_view_sale = $request->content_view_sale;
             $newSale -> time_begin = $request-> time_begin;
             $newSale ->  time_end = $request-> time_end;
             $newSale -> sale_percent = $request->sale_percent;
+            $newSale -> image_path = $request->image_path;
             $newSale -> flag ='1';
             $newSale->save();
     
             return redirect()->action('ViewSaleController@index')->with('status','Thêm Thành Công!');
         }
+        
         else
-            return redirect()->action('ViewSaleController@index')->with('status','Không thêm được thông tin các trường trống!');
+            {
+                if($request->content_view_sale == NULL && $request->image_path != NULL ){
+                
+                    $newSale = new ViewSale();
+                    $newSale -> flag ='0';
+                    $newSale -> time_begin = $request-> time_begin;
+                    $newSale ->  time_end = $request-> time_end;
+                    $newSale -> image_path = $request->image_path;
+                    $newSale -> sale_percent = $request->sale_percent;
+
+                    $newSale->save();
+            
+                    return redirect()->action('ViewSaleController@index')->with('status','Thêm Thành Công!');
+                }
+        
+                else
+                {
+                    if($request->content_view_sale != NULL && $request->image_path == NULL)
+                    {
+                        $newSale = new ViewSale();
+                        $newSale -> content_view_sale = $request->content_view_sale;
+                        $newSale -> time_begin = $request-> time_begin;
+                        $newSale ->  time_end = $request-> time_end;
+                        $newSale -> sale_percent = $request->sale_percent;
+                       
+                        $newSale -> flag ='1';
+                        $newSale->save();
+                
+                        return redirect()->action('ViewSaleController@index')->with('status','Thêm Thành Công!');
+                    }
+                    else
+                    {
+                        return redirect()->action('ViewSaleController@index')->with('status','Không thêm được thông tin các trường trống!');
+                    }
+                }
+            } 
+           
        
     }
-
+    public function endSoon(Request $re)
+    {
+        $id = $re->id;
+        ViewSale::where('id','=',$id)->update(['flag'=>'0']);
+        return redirect()->action('ViewSaleController@index')->with('status','Kết Thúc Chương Trình!');
+    }
     /**
      * Display the specified resource.
      *
@@ -101,24 +134,15 @@ class ViewSaleController extends Controller
         //
         $id = $request->id;
         $viewSale = ViewSale::find($id);
-        if($request->flag == 0)
-        {
+      
             $viewSale->content_view_sale = $request -> content_view_sale;
             $viewSale -> time_begin = $request-> time_begin;
             $viewSale ->  time_end = $request-> time_end;
             $viewSale -> sale_percent = $request->sale_percent;
+            if($request -> image_path!= NULL){
+                $viewSale->image_path = $request -> image_path;
+            }
             $viewSale->save();
-
-        }
-        else
-        {
-            $viewSale->image_path = $request -> image_path;
-            $viewSale -> time_begin = $request-> time_begin;
-            $viewSale ->  time_end = $request-> time_end;
-            $viewSale -> sale_percent = $request->sale_percent;
-            $viewSale->save();
-        }
-            
 
         return redirect()->action('ViewSaleController@index')->with('status','Sửa Thành Công!');
 
@@ -134,9 +158,5 @@ class ViewSaleController extends Controller
     {
         //
     }
-    public function getApiSaleContent ()
-    {
-        $data = ViewSale::where('id','=','1')->get();
-        return $data;
-    }
+  
 }

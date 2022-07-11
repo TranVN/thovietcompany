@@ -33,21 +33,21 @@ class WorkController extends Controller
 
         // ĐIỆN NƯỚC
         $elec = DB::table('works')
-        ->where('status_cus', '=', '0')
-        ->where('kind_work', '=', '0')
         ->where('date_book', 'like', $today)
+        ->orwhere('status_cus', '=', '0')
+        ->where('kind_work', '=', '0')
+        
         ->get();
         $elecHas = DB::table('work_has')
         ->leftJoin('works', 'works.id', '=', 'work_has.id_cus')
         ->leftJoin('workers', 'workers.id', '=', 'work_has.id_worker')
-        ->where(function ($query) {
-            $query -> where('status_work', '=', '0')
-                    ->orWhere('status_work', '=', '1');
-        })
+        -> where('status_work', '!=', '5')
+        -> orWhere('date_book', 'like', $today)
+       
         ->where('status_cus', '=', '1')
         ->where('kind_work', '=', '0')
         ->orderByDesc('workers.sort_name')
-        ->where('date_book', 'like', $today)
+        
         ->get(['work_has.id','work_has.bill_imag','work_has.id_cus','work_has.id_worker','works.work_content','works.phone_number','works.street','works.district','works.name_cus','works.date_book','works.work_note','work_has.income_total','work_has.spending_total','work_has.status_work', 'workers.worker_name','workers.sort_name','works.kind_work','work_has.real_note']);
 
         // ĐIỆN LẠNH

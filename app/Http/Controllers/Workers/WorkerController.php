@@ -277,10 +277,9 @@ class WorkerController extends Controller
             ->leftJoin('warranties', 'warranties.id_cus', '=', 'work_has.id_cus')
             ->where('work_has.id_worker','=',$id)
             ->where('work_has.created_at','like',"$request->date".'%')
-            ->where('status_work', '=', 1)
             ->orderByDesc('id')
             ->limit(100)
-            ->get(['work_has.id', 'works.name_cus', 'works.work_content', 'works.date_book', 'works.street', 'works.district', 'works.phone_number', 'work_has.income_total','work_has.spending_total','warranties.warranty_time','warranties.warranty_info']);
+            ->get(['work_has.id', 'works.name_cus', 'works.work_content', 'works.date_book', 'works.street', 'works.district', 'works.phone_number', 'work_has.income_total','work_has.spending_total','warranties.warranty_time','warranties.warranty_info','work_has.status_work']);
 
             return $findHistoryWork;
         

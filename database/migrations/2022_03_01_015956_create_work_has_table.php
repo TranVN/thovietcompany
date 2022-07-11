@@ -22,7 +22,7 @@ class CreateWorkHasTable extends Migration
             $table->bigInteger('spending_total')->default('0');
             $table->bigInteger('income_total')->default('0');
             $table->string('bill_imag', 500)->nullable();
-            $table ->tinyInteger('status_work')->default(0)->comment = ('0: đang làm; 1:Đã làm xong ; 2:Khách Hủy; 3:Khảo sát; 4: Đã Trả ; 5: đã trả');
+            $table ->tinyInteger('status_work')->default(0)->comment = ('0: đang làm; 1: Mai làm tiếp ; 2:Đã xong; 3:Khảo sát; 4: Đã Trả ; 5: Khách Hủy');
             $table->string('seri_number')->nullable();
             $table->timestamps();
         });
@@ -30,7 +30,7 @@ class CreateWorkHasTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
+     *php
         * @return void
         */
     public function down()
